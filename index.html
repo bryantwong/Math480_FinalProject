@@ -61,14 +61,14 @@
             <span class="k">return</span> <span class="n">signal</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="c"># breaking up into odd and even pieces</span>
+            <span class="c"># breaking up into odd and even indices</span>
             <span class="n">F_even</span> <span class="o">=</span> <span class="n">fft</span><span class="p">([</span><span class="n">signal</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
             <span class="n">F_odd</span> <span class="o">=</span> <span class="n">fft</span><span class="p">([</span><span class="n">signal</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
 
             <span class="c"># defining new empty array with n entries</span>
             <span class="n">combined</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
 
-            <span class="c"># implementation of the alg (using roots of unity)</span>
+            <span class="c"># implementation of the algorithm</span>
                 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">):</span>
                 <span class="n">combined</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">F_even</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">+</span> <span class="n">omega</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">F_odd</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
                 <span class="n">combined</span><span class="p">[</span><span class="n">m</span> <span class="o">+</span> <span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">F_even</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">-</span> <span class="n">omega</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">F_odd</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
@@ -76,7 +76,7 @@
             <span class="k">return</span> <span class="n">combined</span>
 </pre></div>
 
-<p>(INSERT MATHY STUFF ABOUT FFTS HERE) + explanation of the algorithm will be done for final project.</p>
+<p>This is a simple recursive form of the Cooley-Tukey FFT algorithm in most the simple Radix-2 DIT case. There are many explanations of the algorithim, but in a very simple way, we break up our data into even and odd indices and perform FFTs on these much smaller data sets, which is much faster than trying to compute the FFT across the entire set, reducing the computation time to O( n log n).   </p>
 
 <h2>
 <a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
@@ -85,10 +85,8 @@
 
 <iframe width="100%" height="125" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/148930101&amp;auto_play=false&amp;hide_related=false&amp;visual=true"></iframe>
 
-<p>Running it in the terminal (GUI in progress):</p>
 
-<pre><code>    python finalProj.py oboe.wav
-</code></pre>
+<p>Running it in our GUI: <img src = "http://i.imgur.com/TUCzkdK.png"></p>
 
 <p>After about a minute, (will implement in Cython ASAP to reduce computation time), the program outputs an image with the frequencies and their associated relative amplitudes: <img src="http://i.imgur.com/t5RDUOS.png"></p>
 

@@ -1,6 +1,9 @@
 Math 480 Final Project
 ====================
 
+THIS README IS INCOMPLETE - PLEASE REFER TO: http://bryantwong.github.io/Math480_FinalProject/
+-------------------------------------------------
+
 Introduction
 ------------
 
